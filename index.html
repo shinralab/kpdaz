@@ -1,136 +1,493 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KPD-AZ Publishing</title>
+  <meta charset="UTF-8" />
+  <title>KPD-AZ | Minding My Magic Journal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Minding My Magic – a guided self-care and reflection journal. Available in paperback and hardcover on Amazon." />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    body {
+    :root {
+      --bg-wood-dark: #1f1711;
+      --bg-wood-mid: #3a2819;
+      --leather-brown: #5b3b28;
+      --leather-deep: #3d2920;
+      --accent-green: #145c3b;
+      --accent-green-soft: #1d7450;
+      --bone: #f3e6d5;
+      --muted: #bca897;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.55);
+      --radius-xl: 22px;
+      --radius-lg: 14px;
+      --transition-fast: 0.18s ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fafafa;
-      color: #111;
+      padding: 0;
     }
 
-    header {
-      background: #000;
-      color: #fff;
-      padding: 25px;
-      text-align: center;
-      font-size: 28px;
-      letter-spacing: 1px;
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at top left, rgba(92, 60, 40, 0.45), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(20, 92, 59, 0.4), transparent 55%),
+        linear-gradient(135deg, var(--bg-wood-dark), var(--bg-wood-mid));
+      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--bone);
+      padding: 24px;
     }
 
-    .wrap {
+    .frame {
+      width: 100%;
       max-width: 1100px;
-      margin: 40px auto;
-      padding: 0 20px;
+      background: radial-gradient(circle at top, #6a452c, #3a2819);
+      border-radius: 28px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(250, 235, 215, 0.05);
+      padding: 2px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .grid {
+    .frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent 45%, rgba(0, 0, 0, 0.75)),
+          repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.15) 0, rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 4px);
+      mix-blend-mode: soft-light;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .content {
+      position: relative;
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at top center, rgba(255, 255, 255, 0.04), transparent 65%),
+        linear-gradient(135deg, var(--leather-deep), var(--leather-brown));
+      padding: 26px 26px 30px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.3fr);
+      gap: 30px;
     }
 
-    .item {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      min-height: 180px;
+    @media (max-width: 840px) {
+      .content {
+        grid-template-columns: 1fr;
+        padding: 22px 18px 24px;
+      }
     }
 
-    .item-title {
-      font-size: 20px;
-      font-weight: bold;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #f6f1e7, #c79a5a 50%, #3b2618 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.7), 0 10px 20px rgba(0, 0, 0, 0.6);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #23160f;
+    }
+
+    .brand-text-main {
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .brand-text-sub {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      opacity: 0.78;
+    }
+
+    .tagline-chip {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(224, 203, 171, 0.2);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: linear-gradient(120deg, rgba(0,0,0,0.7), rgba(63, 45, 29, 0.9));
+      white-space: nowrap;
+    }
+
+    .hero-kicker {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .hero-title {
+      font-family: "Cormorant Garamond", "Times New Roman", serif;
+      font-weight: 600;
+      font-size: clamp(2.2rem, 3vw, 2.7rem);
+      line-height: 1.05;
       margin-bottom: 10px;
+      color: #f7ecdd;
     }
 
-    .item-text {
-      font-size: 15px;
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: #ddc9b4;
       line-height: 1.5;
+      max-width: 32rem;
+      margin-bottom: 18px;
     }
 
-    footer {
-      text-align: center;
-      margin: 50px 0 20px;
-      font-size: 16px;
+    .hero-bullets {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px 16px;
+      margin-bottom: 20px;
+      font-size: 0.82rem;
+      color: #e6d7c4;
     }
 
-    .kofi {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 12px 20px;
-      background: #29abe0;
-      color: #fff;
+    .hero-bullets span::before {
+      content: "▸";
+      color: var(--accent-green-soft);
+      margin-right: 6px;
+      font-size: 0.8rem;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 18px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-green), var(--accent-green-soft));
+      color: #f5f0e8;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.7);
+      background: linear-gradient(135deg, #1d7450, #209361);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #f0e2cf;
+      border: 1px solid rgba(237, 216, 186, 0.5);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(0, 0, 0, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .btn small {
+      font-weight: 500;
+      opacity: 0.8;
+    }
+
+    .trust-text {
+      font-size: 0.75rem;
+      color: var(--muted);
+      opacity: 0.95;
+    }
+
+    /* Right column: “book card” */
+    .book-card {
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.1), transparent 55%),
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.18), transparent 60%),
+        linear-gradient(135deg, #2b1b14, #130c09);
+      border-radius: var(--radius-xl);
+      padding: 20px 18px 18px;
+      border: 1px solid rgba(255, 243, 224, 0.15);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .book-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(120deg, rgba(255, 255, 255, 0.14), transparent 40%, rgba(0, 0, 0, 0.85));
+      mix-blend-mode: soft-light;
+      opacity: 0.75;
+      pointer-events: none;
+    }
+
+    .book-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .book-chip {
+      align-self: flex-start;
+      padding: 4px 9px;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      border-radius: 999px;
+      border: 1px solid rgba(207, 184, 151, 0.4);
+      background: rgba(8, 8, 8, 0.65);
+      color: #e4d2bd;
+    }
+
+    .book-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #f7ecdd;
+    }
+
+    .book-subtitle {
+      font-size: 0.78rem;
+      color: #e0cfbb;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    .divider {
+      height: 1px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, rgba(235, 211, 177, 0.55), transparent);
+      margin: 6px 0 4px;
+    }
+
+    .book-blurb {
+      font-size: 0.83rem;
+      line-height: 1.5;
+      color: #f1e2cf;
+    }
+
+    .spec-list {
+      list-style: none;
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: #ddc9b4;
+    }
+
+    .spec-list li {
+      margin-bottom: 2px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .spec-label {
+      opacity: 0.8;
+    }
+
+    .spec-value {
+      font-weight: 500;
+    }
+
+    .format-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .format-pill {
+      padding: 5px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(222, 200, 171, 0.4);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #f0e2cf;
+      background: rgba(0,0,0,0.55);
+    }
+
+    .footer-note {
+      margin-top: 10px;
+      font-size: 0.72rem;
+      color: var(--muted);
+      opacity: 0.9;
+    }
+
+    @media (max-width: 540px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .cta-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
-
 <body>
+  <main class="frame">
+    <div class="content">
+      <!-- LEFT: copy / pitch -->
+      <section>
+        <header class="header">
+          <div class="brand">
+            <div class="brand-mark">
+              <span>K</span>
+            </div>
+            <div>
+              <div class="brand-text-main">KPD-AZ</div>
+              <div class="brand-text-sub">Independent Imprints • Real Stories</div>
+            </div>
+          </div>
+          <div class="tagline-chip">
+            Everyday Magic • Real-World Pages
+          </div>
+        </header>
 
-<header>
-  KPD-AZ Publishing & KDP Help
-</header>
+        <div class="hero-kicker">Now Available on Amazon</div>
+        <h1 class="hero-title">Minding My Magic</h1>
+        <p class="hero-subtitle">
+          A guided self-care and reflection journal created to hold real feelings, real faith,
+          and real growth — without pretending life is perfect.
+        </p>
 
-<div class="wrap">
-  
-  <h2>Articles, Guides & Publishing Tools</h2>
+        <div class="hero-bullets">
+          <span>Space to process your day, not just “be positive.”</span>
+          <span>Gentle prompts for self-reflection, healing, and clarity.</span>
+          <span>Clean, spacious layout — no clutter, no overwhelm.</span>
+          <span>Perfect for nightstand, prayer corner, or therapy companion.</span>
+        </div>
 
-  <div class="grid">
-    <div class="item">
-      <div class="item-title">Placeholder #1</div>
-      <div class="item-text">Short description about the topic or resource.</div>
+        <div class="cta-row">
+          <a
+            href="https://a.co/d/7HyaUce"
+            class="btn btn-primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>Paperback on Amazon</span>
+          </a>
+
+          <a
+            href="https://a.co/d/b6ogbiE"
+            class="btn btn-secondary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>Hardcover Edition</span>
+          </a>
+        </div>
+
+        <p class="trust-text">
+          Printed and fulfilled by Amazon • Easy to gift • Ships almost anywhere.
+        </p>
+      </section>
+
+      <!-- RIGHT: “product card” -->
+      <aside class="book-card">
+        <div class="book-inner">
+          <div class="book-chip">Guided Journal • First Edition</div>
+
+          <div>
+            <div class="book-title">Minding My Magic</div>
+            <div class="book-subtitle">Self-Care • Reflection • Mindfulness</div>
+          </div>
+
+          <div class="divider"></div>
+
+          <p class="book-blurb">
+            Inside, you’ll find gentle prompts, space to vent honestly, and room to remember what
+            you’re carrying — and what you’re finally ready to set down. Use it daily, weekly, or
+            whenever life gets loud and you need a page that listens.
+          </p>
+
+          <ul class="spec-list">
+            <li>
+              <span class="spec-label">Length</span>
+              <span class="spec-value">120 pages</span>
+            </li>
+            <li>
+              <span class="spec-label">Interior</span>
+              <span class="spec-value">Black &amp; white, cream paper</span>
+            </li>
+            <li>
+              <span class="spec-label">Style</span>
+              <span class="spec-value">Prompted + free-writing space</span>
+            </li>
+          </ul>
+
+          <div class="format-row">
+            <span class="format-pill">Paperback</span>
+            <span class="format-pill">Case Laminate Hardcover</span>
+          </div>
+
+          <p class="footer-note">
+            This site is the home base for KPD-AZ projects while the catalog grows.
+            Bookmark it — more journals and books are on the way.
+          </p>
+        </div>
+      </aside>
     </div>
-
-    <div class="item">
-      <div class="item-title">Placeholder #2</div>
-      <div class="item-text">Short description about the topic or resource.</div>
-    </div>
-
-    <div class="item">
-      <div class="item-title">Placeholder #3</div>
-      <div class="item-text">Short description about the topic or resource.</div>
-    </div>
-
-    <div class="item">
-      <div class="item-title">Placeholder #4</div>
-      <div class="item-text">Short description about the topic or resource.</div>
-    </div>
-
-    <div class="item">
-      <div class="item-title">Placeholder #5</div>
-      <div class="item-text">Short description about the topic or resource.</div>
-    </div>
-
-    <div class="item">
-      <div class="item-title">Placeholder #6</div>
-      <div class="item-text">Short description about the topic or resource.</div>
-    </div>
-
-    <div class="item">
-      <div class="item-title">Placeholder #7</div>
-      <div class="item-text">Short description about the topic or resource.</div>
-    </div>
-
-    <div class="item">
-      <div class="item-title">Placeholder #8</div>
-      <div class="item-text">Short description about the topic or resource.</div>
-    </div>
-  </div>
-
-</div>
-
-<footer>
-  Support the project:
-  <br>
-  <a class="kofi" href="https://ko-fi.com/kpdaz" target="_blank">Visit Ko-fi</a>
-</footer>
-
+  </main>
 </body>
 </html>
